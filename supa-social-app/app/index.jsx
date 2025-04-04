@@ -5,6 +5,7 @@ import { Screen } from 'expo-router/build/views/Screen';
 import ScreenWrapper from '../components/ScreenWrapper';
 
 const index = () => {
+  
     const router = useRouter();
   return (
     <ScreenWrapper>
