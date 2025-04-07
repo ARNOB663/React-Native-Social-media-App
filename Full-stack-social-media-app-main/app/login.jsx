@@ -9,22 +9,33 @@ import { theme } from '../constants/theme'
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Icon from '../assets/icons';
+import { supabase } from '../lib/superbase'
 
 
-const SignUp = () => {
+const Login = () => {
   const router = useRouter();
   const emailRef = useRef("");
-  const nameRef = useRef("");
   const passwordRef = useRef("");
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async () => {
     if(!emailRef.current || !passwordRef.current)
     {
-      Alert.alert('Sign Up',"Please fill all the fields");
+      Alert.alert('Login',"Please fill all the fields");
       return;
     }
-    
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+    setLoading(true);
+    const {error} = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    setLoading(false);
+    console.log('error: ', error);
+    if(error){
+      Alert.alert('Login',error.message);
+    }
 
   }
 
@@ -36,20 +47,15 @@ const SignUp = () => {
 
         {/* Welcome */}
         <View>
-          <Text style={styles.WelcomeText}>Let's</Text>
-          <Text style={styles.WelcomeText}>Get Started</Text>
+          <Text style={styles.WelcomeText}>Hey,</Text>
+          <Text style={styles.WelcomeText}>Welcome Back</Text>
         </View>
 
         {/* Form */}
         <View style={styles.form}>
           <Text style={{ fontSize: hp(1.5), color: theme.colors.text }}>
-            Please fill the details to create an account 
+            Please login to continue
           </Text>
-          <Input
-            icon={<Icon name="user" size={26} strokeWidth={1.6} />}
-            placeholder='Enter your name'
-            onChangeText={value => nameRef.current = value}
-          />
 
           <Input
             icon={<Icon name="mail" size={26} strokeWidth={1.6} />}
@@ -64,18 +70,20 @@ const SignUp = () => {
             onChangeText={value => passwordRef.current = value} // ✅ FIXED: should be passwordRef
           />
 
-        
+          <Text style={styles.forgotPassword}>
+            Forgot password?
+          </Text>
 
           {/* Button */}
-          <Button title={'Sign up'} loading={loading} onPress={onSubmit} />
+          <Button title={'Login'} loading={loading} onPress={onSubmit} />
 
           {/* Footer */}
           <View style={styles.footer}>
             <Text style={styles.footerText}>
-              Already have an account?
+              Don't have an account?
             </Text>
-            <Pressable onPress={()=> router.push('login')}>
-              <Text style={[styles.footerText, { color: theme.colors.primaryDark, fontWeight: theme.fonts.semiBold }]}>Login</Text>
+            <Pressable onPress={()=>  router.push('signUp')}>
+              <Text style={[styles.footerText, { color: theme.colors.primaryDark, fontWeight: theme.fonts.semiBold }]}>Sign up</Text>
             </Pressable>
           </View>
 
@@ -85,7 +93,7 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default Login
 
 const styles = StyleSheet.create({
   container: {
