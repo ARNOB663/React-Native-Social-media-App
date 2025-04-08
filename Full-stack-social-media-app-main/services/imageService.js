@@ -3,7 +3,6 @@ import * as FileSystem from 'expo-file-system';
 import { supabase } from '../lib/superbase';
 import { superbaseUrl } from '../constants';
 
-
 export const  getUserImageSrc = imagePath => {
     if(imagePath)
     {
@@ -45,8 +44,6 @@ export const uploadFile = async (folderName, fileUri, isImage=true) => {
             return {success : false, msg: 'could not upload media'};
             
         }
-      
-
         return {success : true, data : data.path}
 
 
@@ -58,6 +55,5 @@ export const uploadFile = async (folderName, fileUri, isImage=true) => {
 }
 export const getFilePath =(folderName, isImage) => {
     return `/${folderName}/${(new Date()).getTime()}${isImage? '.png': '.mp4'}`;
-
 
 }
