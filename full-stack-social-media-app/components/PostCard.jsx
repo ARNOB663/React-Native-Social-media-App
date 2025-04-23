@@ -18,6 +18,7 @@ import RenderHtml from "react-native-render-html";
 import { getSupabaseFileUrl } from "../services/imageService";
 import { Video } from "expo-av";
 import { createPostLike } from "../services/postService";
+import Comment from '../assets/icons/Comment';
 
 const textStyle = {
   color: theme.colors.dark,
@@ -100,6 +101,8 @@ const PostCard = ({ item,
     }
     Share.share(content);
   };
+
+  console.log('post item comments:',item?.comments);
 
   const createdAt = moment(item?.created_at).format("MMM D");
   const liked = likes.filter((like) => like.userId == currentUser?.id)[0]
@@ -191,8 +194,16 @@ const PostCard = ({ item,
           <TouchableOpacity onPress={openPostDetails}>
             <Icon name="comment" size={24} color={theme.colors.textLight} />
           </TouchableOpacity>
-          <Text style={styles.count}>{0}</Text>
+          <Text style={styles.count}>
+          {
+
+            item?.comments[0]?.count
+          }
+          </Text>
         </View>
+
+
+
         <View style={styles.footerButton}>
           {loading ? (
             <Loading size="small" />

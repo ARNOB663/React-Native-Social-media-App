@@ -1,5 +1,6 @@
 import { supabase } from "../lib/superbase";
 import { uploadFile } from "./imageService";
+import Comment from '../assets/icons/Comment';
 
 export const createOrUpdatePost = async (post) => {
   try {
@@ -44,6 +45,7 @@ export const fetchPosts = async (limit = 10) => {
         *,
         user: users (id, name, image),
         postLikes (*)
+        comments (count)
         `
       )
       .order("created_at", { ascending: false })
@@ -69,10 +71,12 @@ export const fetchPostsDetails = async (postID) => {
         `
         *,
         user: users (id, name, image),
-        postLikes (*)
+        postLikes (*),
+        comments (*, user: users (id, name, image))
         `
       )
       .eq('id',postID)
+      .order("created_at" ,{ascending: false, foreignTable: 'comments'})
     .single();
 
     if (error) {
@@ -106,6 +110,8 @@ export const createPostLike = async (postLike) => {
   }
 };
 
+
+
 export const removePostLike = async (postId, userId) => {
   try {
     const { error } = await supabase
@@ -122,5 +128,24 @@ export const removePostLike = async (postId, userId) => {
   } catch (error) {
     console.log("fetchPosts error: ", error);
     return { success: false, msg: "Could not remove the post like" };
+  }
+};
+
+export const createComment = async (comment) => {
+  try {
+    const { data, error } = await supabase
+      .from("comments")
+      .insert(comment)
+      .select()
+      .single();
+    if (error) {
+      console.log("comment error: ", error);
+      return { success: false, msg: "Could not create your comment" };
+    }
+
+    return { success: true, data: data };
+  } catch (error) {
+    console.log("comment error: ", error);
+    return { success: false, msg: "Could not create your comment" };
   }
 };
