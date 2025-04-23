@@ -1,4 +1,0 @@
-// export const superbaseUrl = 'https://pfyfqjlsosljwovjozxt.supabase.co';
-// export const superbaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmeWZxamxzb3Nsandvdmpvenh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIyODI5MTksImV4cCI6MjA1Nzg1ODkxOX0.wW2pnLjBFTKrqlBKLGzjtz-djKyEWP6WAmZeGhXFGDE';
-export const superbaseUrl = 'https://hhmitxkpkelvuzpejbjf.supabase.co'
-export const superbaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhobWl0eGtwa2VsdnV6cGVqYmpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5MzIwMzYsImV4cCI6MjA1OTUwODAzNn0.T_6JeU_H1y0YxuRN7WsZNRPXl5P18ZPmUSraL26QaFY'
