@@ -72,7 +72,7 @@ export const fetchPostsDetails = async (postID) => {
         *,
         user: users (id, name, image),
         postLikes (*),
-        comments (*, user: users (id, name, image))
+        comments (*, user: users (id, name, image) )
         `
       )
       .eq('id',postID)
@@ -147,5 +147,24 @@ export const createComment = async (comment) => {
   } catch (error) {
     console.log("comment error: ", error);
     return { success: false, msg: "Could not create your comment" };
+  }
+};
+
+export const removeComment = async (commentId) => {
+  try {
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", commentId)
+    
+    if (error) {
+      console.log("removeCommnet error: ", error);
+      return { success: false, msg: "Could not remove the comment" };
+    }
+
+    return { success: true ,data: {commentId} };
+  } catch (error) {
+    console.log("fetchPosts error: ", error);
+    return { success: false, msg: "Could not remove the comment" };
   }
 };
