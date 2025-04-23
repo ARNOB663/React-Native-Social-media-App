@@ -197,7 +197,7 @@ const PostCard = ({ item,
           <Text style={styles.count}>
           {
 
-            item?.comments[0]?.count
+          item?.comments[0]?.count
           }
           </Text>
         </View>

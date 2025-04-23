@@ -25,6 +25,7 @@ const PostDetails = () => {
   const [loading,setLoading] = useState(false)
 
   const [post,setPost] = useState(null);
+  console.log('post details: ', post)
 
  useEffect(()=>{
     getPostDetails();
