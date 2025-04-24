@@ -40,6 +40,9 @@ const Home = () => {
       )
       .subscribe();
 
+  //getPosts()
+
+
     return () => {
       supabase.removeChannel(postChannel);
     };
